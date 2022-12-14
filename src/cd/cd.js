@@ -22,6 +22,7 @@ const currentPath = (path, targetPath) => {
             }
         }
         const toPath = path + "\\" + targetPath
+
         if(checkDir(path, targetPath) > -1){
             return {path: directory(toPath), err: null}
         }else{
