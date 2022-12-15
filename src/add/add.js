@@ -1,7 +1,10 @@
-import {writeFileSync} from "node:fs"
+import {writeFile} from "node:fs"
 
 function addFile(path, name) {
-    writeFileSync(path + "\\" + name, "")
+    writeFile(path + "\\" + name, "", (err) => {
+        if (err)
+            console.log("Operation failed");
+    })
 }
 
 export default addFile

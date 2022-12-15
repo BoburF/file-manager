@@ -5,6 +5,8 @@ import currentPath from "./src/cd/cd.js"
 import {username, quest} from "./src/utils/username/username.js";
 import readFileWithStream from "./src/cat/cat.js"
 import addFile from "./src/add/add.js";
+import reName from "./src/rn/rn.js"
+
 const rl = createInterface({ input: process.stdin, output: process.stdout });
 
 let userName = username(process.argv.splice(3)[0])
@@ -67,6 +69,11 @@ else if(lines.indexOf("add") > -1){
   const pathToFile = pathFix(lines, "add")
 
   addFile(currentPosition, pathToFile)
+}
+else if(lines.indexOf("rn") > -1){
+  const pathToFile = pathFix(lines, "add")
+
+  reName(pathToFile[0], pathToFile[1], currentPosition)
 }
 else{
   console.log("Invalid input");
