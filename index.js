@@ -1,11 +1,12 @@
 import { createInterface } from "node:readline";
-import ls from "./src/ls/ls.js"
 import {writeToStdout, pathFix} from "./src/utils/stdout/write.js"
-import currentPath from "./src/cd/cd.js"
+import ls from "./src/basic/ls/ls.js"
+import currentPath from "./src/basic/cd/cd.js"
 import {username, quest} from "./src/utils/username/username.js";
-import readFileWithStream from "./src/cat/cat.js"
-import addFile from "./src/add/add.js";
-import reName from "./src/rn/rn.js"
+import readFileWithStream from "./src/basic/cat/cat.js"
+import addFile from "./src/basic/add/add.js";
+import reName from "./src/basic/rn/rn.js"
+import copyOrMove from "./src/basic/copyMove/copyMove.js";
 
 const rl = createInterface({ input: process.stdin, output: process.stdout });
 
@@ -71,9 +72,19 @@ else if(lines.indexOf("add") > -1){
   addFile(currentPosition, pathToFile)
 }
 else if(lines.indexOf("rn") > -1){
-  const pathToFile = pathFix(lines, "add")
+  const pathToFile = pathFix(lines, "rn")
 
   reName(pathToFile[0], pathToFile[1], currentPosition)
+}
+else if(lines.indexOf("cp") > -1){
+  const pathToFile = pathFix(lines, "cp").split(" ")
+  
+  await copyOrMove(pathToFile[0], pathToFile[1], "cp", currentPosition)
+}
+else if(lines.indexOf("mv") > -1){
+  const pathToFile = pathFix(lines, "mv").split(" ")
+  
+  await copyOrMove(pathToFile[0], pathToFile[1], "mv", currentPosition)
 }
 else{
   console.log("Invalid input");

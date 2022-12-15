@@ -14,7 +14,7 @@ function pathFix(lines, command) {
       checkTwoParametr.push(idx)
     }
   })
-  if(!checkTwoParametr.length){
+  if(checkTwoParametr.length){
     line.filter((a,idx) => {
       if(idx > 0){
         checkTwoParametr.push(idx)

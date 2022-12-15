@@ -1,4 +1,4 @@
-import {directory} from "../utils/stdout/write.js"
+import {directory} from "../../utils/stdout/write.js"
 import {homedir} from "node:os"
 import {readdirSync} from "node:fs"
 
