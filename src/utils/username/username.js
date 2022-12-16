@@ -1,3 +1,5 @@
+import {} from "../stdout/write.js"
+
 const username = (name) => {
    return name = typeof name === "string" ? name.match(/(?<=--username=).*$/gm) : ""
 }

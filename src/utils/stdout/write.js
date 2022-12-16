@@ -8,33 +8,45 @@ function directory(directory) {
 
 function pathFix(lines, command) {
   const line = lines.splice(lines.indexOf(command) + 1)
-  const checkTwoParametr = []
+  return line.join(" ")
+}
+
+function twoPathFix(lines, command) {
+  const line = lines.splice(lines.indexOf(command) + 1)
+
+  const indexes = []
   line.filter((a, idx) => {
-    if(!!a.match(/c:/m)){
-      checkTwoParametr.push(idx)
+    if(a.indexOf("c:") !== -1) {
+      indexes.push(idx)
     }
   })
-  if(checkTwoParametr.length){
-    line.filter((a,idx) => {
-      if(idx > 0){
-        checkTwoParametr.push(idx)
+
+  if(indexes.length){
+    line.find((a, idx) => {
+      if(a.indexOf(".") !== -1){
+        indexes.push(idx + 1)
       }
     })
   }
-  if(checkTwoParametr.length >= 2){
-    const paths = []
-    for (let i = 0; i < checkTwoParametr.length; i++) {
-      paths.push(line.slice(checkTwoParametr[i], checkTwoParametr[i + 1]).join(" "))
-    }
 
-    return paths
+  const res = []
+  let j = 0
+
+  if(indexes.length){
+    for (let i = 0; i < indexes.length; i++) {
+      res.push(line.slice(j, indexes[i + 1]).join(" "))    
+      j = indexes[i + 1]
+    }
   }else{
-    return line.join(" ")
+    res.push(...line)
   }
+
+  return res
 }
 
 export {
   writeToStdout,
   directory,
-  pathFix
+  pathFix,
+  twoPathFix
 };

@@ -9,18 +9,15 @@ const read = (path, writeToStdout, currentPosition) => {
     }else{
       path = currentPosition + "\\" + path
     }
-    const stream = createReadStream(path, { encoding: "utf8" });
+    const stream = createReadStream(path, {encoding: "utf-8"});
     stream.on("data", (chunk) => {
       console.log(chunk);
     });
     stream.on("end", () => {
       writeToStdout(currentPosition)
     })
-    stream.on("error", (err) => {
-      if(err) console.log("Operation failed"); writeToStdout(currentPosition);
-    })
   } catch (error) {
-    console.log("Invalid input")
+    console.log("Operation failed")
   }
 };
 
