@@ -1,13 +1,10 @@
 import { createInterface } from "node:readline";
 import {writeToStdout, pathFix, twoPathFix} from "./src/utils/stdout/write.js"
 import ls from "./src/basic/ls/ls.js"
-import currentPath from "./src/basic/cd/cd.js"
+import currentPath from "./src/cd/cd.js"
 import {username, quest} from "./src/utils/username/username.js";
-import readFileWithStream from "./src/basic/cat/cat.js"
-import addFile from "./src/basic/add/add.js";
-import reName from "./src/basic/rn/rn.js"
-import copyOrMove from "./src/basic/copyMove/copyMove.js";
-import remove from "./src/basic/rm/rm.js";
+import operationOs from "./src/system/allIntoOne.js";
+import basicOperation from "./src/basic/allIntoOne.js"
 
 const rl = createInterface({ input: process.stdin, output: process.stdout });
 
@@ -27,7 +24,7 @@ if (!!userName) {
 
 rl.on("line", async (line) => {
 
-  const lines = line.split(" ")
+  const lines = line.trim().split(" ")
 
 if(lines.indexOf("ls") > -1){
 
@@ -35,7 +32,7 @@ if(lines.indexOf("ls") > -1){
   console.table(lists);
 
 }
-else if(lines.indexOf("cd") > -1){
+else if(lines.indexOf("cd") === 0){
   const pathToFile = pathFix(lines, "cd")
 
   const checkedPosition = currentPath(currentPosition, pathToFile)
@@ -48,7 +45,7 @@ else if(lines.indexOf("cd") > -1){
   }
 
 }
-else if(lines.indexOf("up") > -1){
+else if(lines.indexOf("up") === 0){
 
   const checkedPosition = currentPath(currentPosition, "..")
   if(checkedPosition.err === null){
@@ -57,39 +54,31 @@ else if(lines.indexOf("up") > -1){
     console.log("Operation failed");
   }
 }
-else if(lines.indexOf(".exit") > -1){
+else if(lines.indexOf(".exit") === 0){
 
   rl.close()
   return
 }
-else if(lines.indexOf("cat") > -1){
-  const pathToFile = pathFix(lines, "cat")
-
-  readFileWithStream(pathToFile, writeToStdout, currentPosition)
+else if(lines.indexOf("cat") === 0){
+  basicOperation["cat"](lines, currentPosition, writeToStdout)
 }
-else if(lines.indexOf("add") > -1){
-  const pathToFile = pathFix(lines, "add")
-
-  addFile(currentPosition, pathToFile)
+else if(lines.indexOf("add") === 0){
+  basicOperation["add"](lines, currentPosition)
 }
-else if(lines.indexOf("rn") > -1){
-  let pathToFile = twoPathFix(lines, "rn")
-
-  reName(pathToFile[0], pathToFile[1], currentPosition)
+else if(lines.indexOf("rn") === 0){
+  basicOperation["rn"](lines, currentPosition)
 }
-else if(lines.indexOf("cp") > -1){
-  let pathToFile = twoPathFix(lines, "cp")
-  
-  await copyOrMove(pathToFile[0], pathToFile[1], "cp", currentPosition)
+else if(lines.indexOf("cp") === 0){
+  basicOperation["cp"](lines, currentPosition)
 }
-else if(lines.indexOf("mv") > -1){
-  let pathToFile = twoPathFix(lines, "mv")
-  
-  await copyOrMove(pathToFile[0], pathToFile[1], "mv", currentPosition)
+else if(lines.indexOf("mv") === 0){
+  basicOperation["mv"](lines, currentPosition)
 }
-else if(lines.indexOf("rm") > -1){
-  const pathToFile = pathFix(lines, "rm")
-  remove(pathToFile, currentPosition)
+else if(lines.indexOf("rm") === 0){
+  basicOperation["rm"](lines, currentPosition)
+}
+else if(lines.indexOf("os") === 0){
+  operationOs(lines)
 }
 else{
   console.log("Invalid input");
