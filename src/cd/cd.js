@@ -5,8 +5,14 @@ import {readdirSync} from "node:fs"
 let pathS = directory(homedir())
 
 const checkDir = (path, target) => {
-    const dir = readdirSync(path)
-    return dir.indexOf(target)
+    const dir = readdirSync(path, {withFileTypes: true})
+    const idx = dir.find((a) => a.name === target)
+
+    if(idx){
+        return idx.isDirectory()
+    }else{
+        return false
+    }
 }
 
 const currentPath = (path, targetPath) => {
@@ -23,7 +29,7 @@ const currentPath = (path, targetPath) => {
         }
         const toPath = path + "\\" + targetPath
 
-        if(checkDir(path, targetPath) > -1){
+        if(checkDir(path, targetPath)){
             return {path: directory(toPath), err: null}
         }else{
             return {path: pathS, err: true}
