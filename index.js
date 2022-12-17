@@ -5,6 +5,8 @@ import currentPath from "./src/cd/cd.js"
 import {username, quest} from "./src/utils/username/username.js";
 import operationOs from "./src/system/allIntoOne.js";
 import basicOperation from "./src/basic/allIntoOne.js"
+import compressWithBrotli from "./src/brotli/compress.js";
+import decompressWithBrotli from "./src/brotli/decompress.js";
 
 const rl = createInterface({ input: process.stdin, output: process.stdout });
 
@@ -79,6 +81,14 @@ else if(lines.indexOf("rm") === 0){
 }
 else if(lines.indexOf("os") === 0){
   operationOs(lines)
+}
+else if(lines.indexOf("compress") === 0){
+  let pathToFile = twoPathFix(lines, "compress");
+  compressWithBrotli(pathToFile[0], pathToFile[1], currentPosition)
+}
+else if(lines.indexOf("decompress") === 0){
+  let pathToFile = twoPathFix(lines, "decompress");
+  decompressWithBrotli(pathToFile[0], pathToFile[1], currentPosition)
 }
 else{
   console.log("Invalid input");
