@@ -7,6 +7,7 @@ import operationOs from "./src/system/allIntoOne.js";
 import basicOperation from "./src/basic/allIntoOne.js"
 import compressWithBrotli from "./src/brotli/compress.js";
 import decompressWithBrotli from "./src/brotli/decompress.js";
+import createHashForFile from "./src/hash/hash.js";
 
 const rl = createInterface({ input: process.stdin, output: process.stdout });
 
@@ -89,6 +90,10 @@ else if(lines.indexOf("compress") === 0){
 else if(lines.indexOf("decompress") === 0){
   let pathToFile = twoPathFix(lines, "decompress");
   decompressWithBrotli(pathToFile[0], pathToFile[1], currentPosition)
+}
+else if(lines.indexOf("hash") === 0){
+  const pathToFile = pathFix(lines, "hash");
+  await createHashForFile(pathToFile, currentPosition)
 }
 else{
   console.log("Invalid input");
