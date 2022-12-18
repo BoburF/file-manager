@@ -20,7 +20,7 @@ const currentPath = (path, targetPath) => {
         return {path: pathS, err: true}
     }else{
         if(targetPath === ".."){
-            if(path === "c:\\Users"){
+            if(path === "C:"){
                 return {path: path, err: true}
             }else{
                 const upPath = path.split("\\")

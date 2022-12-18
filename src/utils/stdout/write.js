@@ -1,9 +1,11 @@
+import {resolve} from "node:path"
+
 function writeToStdout(text) {
   return console.log("\n" + "You are currently in " + text);
 }
 
 function directory(directory) {
-  return new URL(directory).href;
+  return resolve(directory);
 }
 
 function pathFix(lines, command) {
