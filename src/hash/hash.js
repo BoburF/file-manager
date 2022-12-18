@@ -10,7 +10,7 @@ async function createHashForFile(pathToFile, currentPosition) {
   }
 
   await readFile(pathToFileFixed, "utf-8", (err, data) => {
-    if(err) throw new Error("FS operation failed")
+    if(err) throw new Error("Operation failed")
     else console.log(createHash('sha256').update(data).digest('hex'));
 })
 }
