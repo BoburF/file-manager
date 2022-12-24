@@ -1,11 +1,11 @@
 import {directory} from "../utils/stdout/write.js"
 import {homedir} from "node:os"
-import {readdirSync} from "node:fs"
+import {readdir} from "node:fs"
 
 let pathS = directory(homedir())
 
-const checkDir = (path, target) => {
-    const dir = readdirSync(path, {withFileTypes: true})
+const checkDir = async (path, target) => {
+    const dir = await readdir(path, {withFileTypes: true})
     const idx = dir.find((a) => a.name === target)
 
     if(idx){
