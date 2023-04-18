@@ -1,6 +1,6 @@
 import { directory } from "../utils/stdout/write.js"
 import { homedir } from "node:os"
-import { readdir, access } from "node:fs"
+import { readdir, access } from "node:fs/promises"
 import { join } from "node:path";
 
 let pathS = directory(homedir())
@@ -20,7 +20,6 @@ const checkDir = async (path, target) => {
         if (!checkPosition) return false
         const dir = await readdir(path, { withFileTypes: true })
         const idx = dir.find((a) => a.name === target)
-
         if (idx) {
             return idx.isDirectory()
         } else {
@@ -53,5 +52,7 @@ const currentPath = async (path, targetPath) => {
         }
     }
 }
+
+export { isExistFile }
 
 export default currentPath

@@ -62,6 +62,7 @@ else if(lines.indexOf(".exit") === 0){
   return
 }
 else if(lines.indexOf("cat") === 0){
+  
   basicOperation["cat"](lines, currentPosition, writeToStdout)
 }
 else if(lines.indexOf("add") === 0){
