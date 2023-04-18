@@ -12,8 +12,7 @@ import createHashForFile from "./src/hash/hash.js";
 const rl = createInterface({ input: process.stdin, output: process.stdout });
 
 let userName = username(process.argv.splice(3)[0])
-let currentPosition = currentPath().path
-
+let currentPosition = (await currentPath()).path
 if (!!userName) {
   console.log(`Welcome to the File Manager, ${userName}!`);
   writeToStdout(currentPosition)
@@ -38,7 +37,7 @@ if(lines.indexOf("ls") > -1){
 else if(lines.indexOf("cd") === 0){
   const pathToFile = pathFix(lines, "cd")
 
-  const checkedPosition = currentPath(currentPosition, pathToFile)
+  const checkedPosition = await currentPath(currentPosition, pathToFile)
 
 
   if(checkedPosition.err === null){
@@ -50,7 +49,7 @@ else if(lines.indexOf("cd") === 0){
 }
 else if(lines.indexOf("up") === 0){
 
-  const checkedPosition = currentPath(currentPosition, "..")
+  const checkedPosition = await currentPath(currentPosition, "..")
   if(checkedPosition.err === null){
     currentPosition = checkedPosition.path
   }else{
