@@ -6,3 +6,5 @@ instead of
 cp c:\Users\User\Desktop\read.txt c:\Users\User\Desktop\file-manager
 # you can just if you in Desktop position
 cp read.txt file-manager
+# in compress you must type exactly path to file with file name
+# in decompress you must type exactly destination path with file name
