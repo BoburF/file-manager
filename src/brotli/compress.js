@@ -8,12 +8,12 @@ function compressWithBrotli(pathToFile, pathToNewFile, currentPosition) {
     let fileName = pathToFile;
     fileName = fileName.split("\\");
     fileName = fileName[fileName.length - 1] + ".br";
-    if (pathToFile.indexOf("c:") === -1) {
+    if (pathToFile.indexOf("C:") === -1) {
       pathToFileFixed = currentPosition + "\\" + pathToFile;
     } else {
       pathToFileFixed = pathToFile;
     }
-    if (pathToNewFile.indexOf("c:") === -1) {
+    if (pathToNewFile.indexOf("C:") === -1) {
       pathToNewFileFixed = currentPosition + "\\" + pathToNewFile + "\\" + fileName;
     } else {
       pathToNewFileFixed = pathToNewFile + "\\" + fileName;

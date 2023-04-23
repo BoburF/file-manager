@@ -9,12 +9,12 @@ function decompressWithBrotli(pathToFile, pathToNewFile, currentPosition) {
     fileName = fileName.split("\\");
     fileName = fileName[fileName.length - 1];
     fileName = fileName.slice(0, fileName.indexOf(".br"))
-    if (pathToFile.indexOf("c:") === -1) {
+    if (pathToFile.indexOf("C:") === -1) {
       pathToFileFixed = currentPosition + "\\" + pathToFile;
     } else {
       pathToFileFixed = pathToFile;
     }
-    if (pathToNewFile.indexOf("c:") === -1) {
+    if (pathToNewFile.indexOf("C:") === -1) {
       pathToNewFileFixed = currentPosition + "\\" + pathToNewFile;
     } else {
       pathToNewFileFixed = pathToNewFile;

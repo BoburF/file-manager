@@ -4,7 +4,7 @@ const read = (path, writeToStdout, currentPosition) => {
   try {
     const arrPath = path.split("\\")
 
-    if (arrPath.indexOf("c:") > -1) {
+    if (arrPath.indexOf("C:") > -1) {
       path = path
     } else {
       path = currentPosition + "\\" + path

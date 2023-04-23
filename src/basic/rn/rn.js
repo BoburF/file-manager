@@ -3,7 +3,7 @@ import { rename } from "node:fs"
 const reName = async (pathToFile, newName, currentPosition) => {
     try {
         let path, newPath;
-        if (pathToFile.indexOf("c:") === -1) {
+        if (pathToFile.indexOf("C:") === -1) {
             path = currentPosition + "\\" + pathToFile
             newPath = currentPosition + "\\" + newName
         } else {

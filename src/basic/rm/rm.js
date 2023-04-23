@@ -2,7 +2,7 @@ import { rm } from "node:fs"
 
 function remove(path, currentPosition) {
     try {
-        if (path.indexOf("c:") === -1) {
+        if (path.indexOf("C:") === -1) {
             path = currentPosition + "\\" + path
         }
         rm(path, (err) => {
