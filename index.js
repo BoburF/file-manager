@@ -8,11 +8,12 @@ import basicOperation from "./src/basic/allIntoOne.js"
 import compressWithBrotli from "./src/brotli/compress.js";
 import decompressWithBrotli from "./src/brotli/decompress.js";
 import createHashForFile from "./src/hash/hash.js";
+import { homedir } from "node:os";
 
 const rl = createInterface({ input: process.stdin, output: process.stdout });
 
 let userName = username(process.argv.splice(3)[0])
-let currentPosition = currentPath().path
+let currentPosition = homedir()
 
 if (!!userName) {
   console.log(`Welcome to the File Manager, ${userName}!`);
@@ -37,8 +38,7 @@ if(lines.indexOf("ls") > -1){
 }
 else if(lines.indexOf("cd") === 0){
   const pathToFile = pathFix(lines, "cd")
-
-  const checkedPosition = currentPath(currentPosition, pathToFile)
+  const checkedPosition = await currentPath(currentPosition, pathToFile)
 
 
   if(checkedPosition.err === null){
@@ -50,7 +50,7 @@ else if(lines.indexOf("cd") === 0){
 }
 else if(lines.indexOf("up") === 0){
 
-  const checkedPosition = currentPath(currentPosition, "..")
+  const checkedPosition = await currentPath(currentPosition, "..")
   if(checkedPosition.err === null){
     currentPosition = checkedPosition.path
   }else{
