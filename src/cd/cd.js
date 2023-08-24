@@ -42,4 +42,5 @@ const currentPath = async (path, targetPath) => {
   }
 };
 
+
 export default currentPath;

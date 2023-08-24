@@ -63,6 +63,7 @@ else if(lines.indexOf(".exit") === 0){
   return
 }
 else if(lines.indexOf("cat") === 0){
+  
   basicOperation["cat"](lines, currentPosition, writeToStdout)
 }
 else if(lines.indexOf("add") === 0){
@@ -93,7 +94,7 @@ else if(lines.indexOf("decompress") === 0){
 }
 else if(lines.indexOf("hash") === 0){
   const pathToFile = pathFix(lines, "hash");
-  await createHashForFile(pathToFile, currentPosition)
+  console.log(await createHashForFile(pathToFile, currentPosition))
 }
 else{
   console.log("Invalid input");

@@ -1,12 +1,16 @@
-import {rm} from "node:fs"
+import { rm } from "node:fs"
 
 function remove(path, currentPosition) {
-    if(path.indexOf("c:") === -1){
-        path = currentPosition + "\\" + path
+    try {
+        if (path.indexOf("C:") === -1) {
+            path = currentPosition + "\\" + path
+        }
+        rm(path, (err) => {
+            if (err) console.log("Operation failed");
+        })
+    } catch (error) {
+        console.log("Operation failed");
     }
-    rm(path, (err) => {
-        if(err) console.log("Operation failed");
-    })
 }
 
 export default remove
