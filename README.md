@@ -1,8 +1,16 @@
+
 # file-manager
-npm run start -- --username=your_username to start project
-# you can do operation without typing full path if you in directory and you need do operation in this directory files you can just type this name and this will join current directory and this file 
-# like
-instead of
+
+Чтобы запустить проект, выполните команду:
+```
+npm run start -- --username=ваше_имя_пользователя
+```
+Вы можете выполнять операции без указания полного пути, если находитесь в директории и вам нужно выполнить операцию над файлами в этой директории. Просто введите имя файла, и текущая директория будет автоматически добавлена к нему.
+
+Например, вместо:
+```
 cp c:\Users\User\Desktop\read.txt c:\Users\User\Desktop\file-manager
-# you can just if you in Desktop position
+```
+вы можете просто, если находитесь в позиции Desktop:
+```
 cp read.txt file-manager
