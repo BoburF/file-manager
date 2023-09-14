@@ -3,7 +3,7 @@ import { homedir } from "node:os";
 import { readdir } from "node:fs/promises";
 import { resolve } from "node:path";
 
-const pathS = directory(homedir());
+let pathS = directory(homedir());
 
 const checkDir = async (path, target) => {
   const dir = await readdir(path, { withFileTypes: true });
@@ -18,15 +18,18 @@ const checkDir = async (path, target) => {
 
 const currentPath = async (path, targetPath) => {
   if (targetPath === pathS || !targetPath) {
+
     return { path: pathS, err: true };
   } else {
     if (targetPath === "..") {
-      const upPath = path.split("/");
-      if (upPath.length === 1) {
+      if (path === "C:") {
         return { path: path, err: true };
       } else {
-        upPath.pop();
-        return { path: upPath.join("/"), err: null };
+        const upPath = path.split("\\");
+        return {
+          path: upPath.splice(0, upPath.length - 1).join("\\"),
+          err: null,
+        };
       }
     }
     const toPath = resolve(path, targetPath);
@@ -38,5 +41,6 @@ const currentPath = async (path, targetPath) => {
     }
   }
 };
+
 
 export default currentPath;
