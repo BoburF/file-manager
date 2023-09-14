@@ -1,21 +1,27 @@
 import { writeToStdout } from "../stdout/write.js";
 
-const username = (name) => {
-  return (name =
-    typeof name === "string" ? name.match(/(?<=--username=).*$/gm) : "");
+const getUsername = (name) => {
+  return typeof name === "string" ? name.match(/(?<=--username=).*$/gm) : "";
 };
 
-const quest = async (rl, writeToStdout, currentPosition, nameToUserName) => {
-  return rl.question("Your name, please: ", (name) => {
-    if (name.trim()) {
-      console.log(`Welcome to the File Manager, ${name}!`);
-      writeToStdout(currentPosition);
-      nameToUserName(name);
-      return name;
-    } else {
-      return quest(rl);
-    }
-  });
+const quest = async (rl, currentPosition, nameToUserName) => {
+  const askName = () => {
+    return new Promise((resolve) => {
+      rl.question("Your name, please: ", (name) => {
+        resolve(name.trim());
+      });
+    });
+  };
+
+  const name = await askName();
+  if (name) {
+    console.log(`Welcome to the File Manager, ${name}!`);
+    writeToStdout(currentPosition);
+    nameToUserName(name);
+    return name;
+  } else {
+    return quest(rl, currentPosition, nameToUserName);
+  }
 };
 
-export { username, quest };
+export { getUsername as username, quest };
